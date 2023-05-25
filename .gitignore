@@ -1,2 +1,5 @@
 .prettierrc
 .vscode
+.env
+app/*.xlsx
+app/validate.py
