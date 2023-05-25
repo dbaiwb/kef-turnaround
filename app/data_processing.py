@@ -1,13 +1,17 @@
 # data_processing.py
+from typing import Dict, List, Optional, Union
 import datetime
 
 # Setting global variables
-target_key = 'AirlineIATA'
-target_values = ['FI', 'SK', 'AY']
-keys_to_keep = ['No', 'OriginDestIATA', 'Scheduled', 'Stand', 'Aircraft']
+target_key: str = 'AirlineIATA'
+target_values: List[str] = ['FI', 'SK', 'AY']
+keys_to_keep: List[str] = ['No', 'OriginDestIATA',
+                           'Scheduled', 'Stand', 'Aircraft']
 
 
-def filter_data(data, key=None, values=None):
+def filter_data(data: Dict[str, Union[Dict[str, str], List[Dict[str, str]]]],
+                key: Optional[str] = None,
+                values: Optional[List[str]] = None) -> List[Dict[str, str]]:
     """
     Filters the input data according to provided key and values. 
     If key and values are not provided, uses the global target_key and target_values.
@@ -44,7 +48,7 @@ def filter_data(data, key=None, values=None):
     return sorted(data, key=lambda x: x['Scheduled'])
 
 
-def format_time(data):
+def format_time(data: List[Dict[str, str]]) -> None:
     """
     Formats the 'Scheduled' time of data items into '%H:%M' format.
     Args:
@@ -69,7 +73,9 @@ def format_time(data):
         item['Scheduled'] = formatted_time
 
 
-def filter_data_by_timestamp(data, start_timestamp, end_timestamp):
+def filter_data_by_timestamp(data: List[Dict[str, str]],
+                             start_timestamp: datetime.datetime,
+                             end_timestamp: datetime.datetime) -> List[Dict[str, str]]:
     """
     Filters the data by a range of timestamps.
     Args:
@@ -89,7 +95,8 @@ def filter_data_by_timestamp(data, start_timestamp, end_timestamp):
     return [item for item in data if start_timestamp <= datetime.datetime.fromisoformat(item['Scheduled']) <= end_timestamp]
 
 
-def format_data(data, departure=0):
+def format_data(data: List[Dict[str, str]],
+                departure: Optional[int] = 0) -> None:
     """
     Formats the keys in the data items.
     Args:

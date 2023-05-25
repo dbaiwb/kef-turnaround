@@ -11,8 +11,8 @@ def main():
     Main function to fetch, process and export flight data.
     """
     # Define time thresholds for filtering data
-    hours_threshold_before = 5
-    hours_threshold_after = 5
+    hours_threshold_before = 1
+    hours_threshold_after = 4
 
     # Fetch data from the specified URLs
     try:
@@ -45,7 +45,7 @@ def main():
         datetime.timezone.utc) - datetime.timedelta(hours=hours_threshold_before)
     cutoff_time_after = datetime.datetime.now(
         datetime.timezone.utc) + datetime.timedelta(hours=hours_threshold_after)
-
+    print(cutoff_time_after)
     # Filter data by timestamp
     try:
         arrivals = filter_data_by_timestamp(
