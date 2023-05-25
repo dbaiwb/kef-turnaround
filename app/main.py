@@ -45,7 +45,6 @@ def main():
         datetime.timezone.utc) - datetime.timedelta(hours=hours_threshold_before)
     cutoff_time_after = datetime.datetime.now(
         datetime.timezone.utc) + datetime.timedelta(hours=hours_threshold_after)
-    print(cutoff_time_after)
     # Filter data by timestamp
     try:
         arrivals = filter_data_by_timestamp(

@@ -47,7 +47,7 @@ def export_to_excel(data: List[Dict[str, str]]) -> None:
         border_format = create_border_format(workbook)
 
         # Format the headers
-        format_header(worksheet, column_order)
+        format_header(worksheet, column_order, header_format)
 
         # Apply conditional formatting to highlight specific rows
         format_rows(worksheet, ['A3:A39', 'C3:C39',
@@ -99,7 +99,7 @@ def create_border_format(workbook):
     return workbook.add_format({'border': 1, 'border_color': 'black'})
 
 
-def format_header(worksheet, column_order):
+def format_header(worksheet, column_order, header_format):
     """
     Format the headers of the worksheet.
     Args:
@@ -111,7 +111,7 @@ def format_header(worksheet, column_order):
     """
     for col_idx, header in enumerate(column_order):
         cell = xlsxwriter.utility.xl_col_to_name(col_idx) + '2'
-        worksheet.write(cell, header)
+        worksheet.write(cell, header, header_format)  # Use the header format here
         text_length = len(str(header))
         column_width = max(10, text_length)
         worksheet.set_column(col_idx, col_idx, column_width)
