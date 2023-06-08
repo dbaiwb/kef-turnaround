@@ -1,4 +1,5 @@
 # main.py
+import argparse
 import datetime
 from excel_export import export_to_excel
 from data_fetch import *
@@ -6,14 +7,10 @@ from data_processing import *
 from data_merge import data_merge
 
 
-def main():
+def main(hours_threshold_before, hours_threshold_after):
     """
     Main function to fetch, process and export flight data.
     """
-    # Define time thresholds for filtering data
-    hours_threshold_before = 1
-    hours_threshold_after = 4
-
     # Fetch data from the specified URLs
     try:
         arrivals_response = fetch_data(
@@ -87,4 +84,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--bf', type=int, required=True,
+                        help='Specify time in hours before now')
+    parser.add_argument('--af', type=int, required=True,
+                        help='Specify time in hours after now')
+
+    args = parser.parse_args()
+
+    main(args.bf, args.af)
