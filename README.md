@@ -34,6 +34,7 @@ The Flight Traffic Analyzer is a Python command-line tool that fetches, processe
 ## Run using CLI
 
 Run the main.py script followed by the number of hours before and after the current time to fetch flight data:
+    
     ```bash
     python3 main.py --bf <hours_before> --af <hours_after>
 
